@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group([
+    'middleware' => 'api',
     'prefix' => 'auth',
 ], function () {
     Route::post('login', 'AuthController@login');
@@ -22,4 +23,10 @@ Route::group([
     Route::post('me', 'AuthController@me');
 });
 
-Route::post('user/create', 'Auth/RegisterController@create');
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'user',
+], function () {
+    Route::post('register', 'UserController@register');
+    Route::post('edit', 'UserController@edit');
+});
