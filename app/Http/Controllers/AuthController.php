@@ -26,8 +26,8 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json([
-            'data' => [
-                'user' => auth()->user(),
+            "data" => [
+                "user" => auth()->user(),
             ],
         ]);
     }
@@ -36,7 +36,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(["message" => "Success"]);
     }
 
     public function refresh()
@@ -47,11 +47,11 @@ class AuthController extends Controller
     static function respondWithToken($token)
     {
         return response()->json([
-            'message' => 'Success',
-            'data' => [
-                'access_token' => $token,
-                'token_type' => 'bearer',
-                'expires_in' => auth()->factory()->getTTL() * 60
+            "message" => "Success",
+            "data" => [
+                "access_token" => $token,
+                "token_type" => "bearer",
+                "expires_in" => auth()->factory()->getTTL() * 60
             ],
         ]);
     }

@@ -96,4 +96,38 @@ class UserController extends Controller
             ],
         ], 200);
     }
+
+    public function delete()
+    {
+        $id = auth()->user()['id'];
+
+        if (!$id) {
+            return response()->json([
+                "message" => "Unauthorized",
+            ], 401);
+        }
+
+        $credentials = request(['email', 'password']);
+
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json([
+                'message' => 'Unauthorized',
+                'data' => [
+                    'details' => 'Try again, credentials are wrong...',
+                ],
+            ], 401);
+        }
+
+        $user = User::find($id);
+        $user->delete();
+
+        auth()->logout();
+
+        return response()->json([
+            'message' => 'Success',
+            'data' => [
+                'details' => 'Deleted completely, It must have a 14 days time but okay :D',
+            ],
+        ]);
+    }
 }
